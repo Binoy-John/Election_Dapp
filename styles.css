@@ -1,0 +1,18 @@
+.form{
+    text-align: center;
+}
+
+.butt{
+    margin: 10px;
+}
+#vote_input{
+    margin: 10px;
+    padding: 0 50px 0 50px;
+}
+#submit_vote{
+    padding: 0 45px 0 45px;
+}
+
+.body{
+    filter: invert(0%);
+}
