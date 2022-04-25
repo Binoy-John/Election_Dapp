@@ -1,6 +1,6 @@
 import { get_index_in_list,generate_proof_list_index,generate_merkle_list,generate_proof_list } from "./helpful_scripts.js";
 
-var address="0x14B1af53E0015773A07396eE4017Bc2B56a8FF20";
+var address="0xa8F004F122CdBb52D4f4F6EB0C6FdD0DB0F925a9";
 var abi=[
 	{
 		"inputs": [
@@ -11,19 +11,6 @@ var abi=[
 			}
 		],
 		"name": "add_party_list",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "party_name",
-				"type": "string"
-			}
-		],
-		"name": "cast_test_vote_only_owner",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -295,6 +282,7 @@ async function get_election_winner(contract){
 	var election_winner = await contract.methods.get_winner().call();
 	console.log(election_winner);
 	return election_winner;
+
 }
 
 async function get_election_status(contract){
@@ -357,13 +345,16 @@ $("#submit_vote").click(async function(){
 		console.log("proof list is "+proof_list);
 		var cast_vote_contract_status = await contract.methods.cast_vote(proof_list,index,vote_choice).send({from: account});
 		console.log("vote status is returned as "+JSON.stringify(cast_vote_contract_status));
-		if(cast_vote_contract_status)
+		console.log((cast_vote_contract_status.outputs));
+		var vote_status = await has_not_voted(contract,account)
+		if(vote_status == false)
 		{
 			$("#voted_status").html("Your vote has be sumbitted successfully!")
 		}
 		else{
 			$("#voted_status").html("We were unable to register your vote.");
 		}
+		console.log(vote_status);
 	}
 	
 })
